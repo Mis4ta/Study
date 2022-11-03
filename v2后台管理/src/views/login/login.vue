@@ -1,7 +1,7 @@
 <template lang="">
   <div class="loginPage" >
     <div class=" login_box">
-   <h1>蟠桃会人员管理系统</h1>
+   <h1>AKA精神病俱乐部后台管理系统</h1>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" >
   <el-form-item label="用户名" prop="username">
     <el-input type="username" v-model="ruleForm.username" autocomplete="off"></el-input>
@@ -79,19 +79,20 @@ export default {
             password: this.ruleForm.password,
             code: this.ruleForm.captchacode,
             uuid: localStorage.getItem("AKA-uuid")
+
           })
-          if (res.code == 200) {
-            console.log(res);
-            this.$message({
-              message: "登录成功",
-              type: "success"
-            })
-          } else {
-            this.$message({
-              message: "登录失败",
-              type: "error"
-            })
-          }
+          if (!res) return;
+          // 提示登录成功
+          this.$message({
+            message: "登录成功",
+            type: "success"
+          })
+          // 清除uuid
+          localStorage.removeItem("AKA-uuid")
+          // 保存token
+          localStorage.setItem("AKA-authorization-token", res.token)
+          // 跳转到首页
+          this.$router.push("/")
         } else {
           this.$message({
             message: "请输入正确信息再提交",
@@ -103,19 +104,13 @@ export default {
     },
     async UserDataAPI() {
       let res = await getUserData()
-      if (res.code == 200) {
-        // console.log(res);
-        // 获取验证码图片
-        this.pictureUrl = "data:image/gif;base64," + res.img
-        // 保存uuid,登陆时返回参数给后端
-        localStorage.setItem("AKA-uuid", res.uuid)
-      } else {
-        this.$message({
-          message: res.msg,
-          type: "error"
-        })
-      }
 
+      if (!res) return;
+      // console.log(res);
+      // 获取验证码图片
+      this.pictureUrl = "data:image/gif;base64," + res.img
+      // 保存uuid,登陆时返回参数给后端
+      localStorage.setItem("AKA-uuid", res.uuid)
     }
 
   },
