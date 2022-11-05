@@ -30,7 +30,7 @@ export default {
   padding: 5px 0 0 10px;
   width: 100%;
   height: 84px;
-  background-color: #bfa;
+  background-color: #fff;
   box-shadow: 0px 0 10px #ccc;
 
   button {

@@ -3,7 +3,7 @@
   
     <h1 >
        <img src="../../assets/images/logo.png" alt="logo" width="32">
-       <span v-show="!collapseIsShow">沙口CLUB</span>
+       <span v-show="!collapseIsShow">V2通用后台管理</span>
       </h1>
     <el-menu
     :router="true"
@@ -17,16 +17,15 @@
       <div v-for="item,index in menuData" :key="index">
       <el-submenu :index="item.path" v-if="item.children" >
         <template slot="title" >
-          <i :class="item.meta.icon" ></i>
-      
-          <span v-show="!collapseIsShow">{{item.meta.title}}</span>
+          <svg-icon :iconFileName="item.icon" class="svgSize"></svg-icon>
+          <span v-show="!collapseIsShow">{{item.title}}</span>
         </template>
-          <el-menu-item :index="i2.path" v-for="i2,inx in item.children">{{i2.meta.title}}</el-menu-item>
+          <el-menu-item :index="i2.path" v-for="i2,inx in item.children">{{i2.title}}</el-menu-item>
       </el-submenu>
 
       <el-menu-item :index="item.path" v-else >
-        <i :class="item.meta.icon"></i>
-        <span slot="title" >{{item.meta.title}}</span>
+        <svg-icon :iconFileName="item.icon" class="svgSize"></svg-icon>
+        <span slot="title" >{{item.title}}</span>
       </el-menu-item>
     </div>
     </el-menu>
@@ -118,7 +117,17 @@ export default {
   ::v-deep .el-menu--collapse .el-submenu__title .el-submenu__icon-arrow {
     display: none;
   }
+}
 
+#app>div>div.nav>ul>div>li>ul>li {
+  background-color: #1f2d3d !important;
+}
 
+#app>div>div.nav>ul>div>li>ul>li:hover {
+  background-color: rgb(38, 52, 69) !important;
+}
+
+.svgSize {
+  margin-right: 5px;
 }
 </style>
