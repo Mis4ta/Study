@@ -86,7 +86,6 @@ router.beforeEach(async (to, from, next) => {
     // 传值到vuex
     store.commit("menuData/getUserInfo", newArr);
     // 动态写入路由
-   
    let AllPath= [{
       path: "/home",
       name: "home",
